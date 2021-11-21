@@ -1,8 +1,5 @@
 html, body {
     height: 100%;
-}
-
-.body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
@@ -18,11 +15,11 @@ html, body {
 }
 
 .authorization-form {
-    height: 270px;
+    height: 230px;
     width: 300px;
     background: #000000;
     border-radius: 30px;
-    border: 3px solid #f8e401;
+    border: 3px solid #f80101;
 }
 
 .authorization-form__logo {

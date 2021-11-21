@@ -23,14 +23,6 @@ html, body{
     word-spacing: 10px;
 }
 
-.main-header__img {
-    height: 90px;
-    width: 90px;
-    margin-left:20px;
-    margin-top:5px;
-    float: left;
-}
-
 .main-header{
     margin-top: 0;
     margin-left: 0;
@@ -40,7 +32,6 @@ html, body{
 }
 
 .main-header nav a h2{
-
     color: white;
 }
 
@@ -52,7 +43,7 @@ html, body{
 .main-header__text{
     color: white;
     font-size: 15px;
-    padding-left: 15px;
+    padding-left: 35px;
     margin-top:15px;
     float: left;
     word-spacing: 10px;
