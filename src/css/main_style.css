@@ -100,7 +100,7 @@ header img{
 
 }
 
-.products .product-item .rate {
+.products .product-item .time {
     background-color: #000000;
     color: #fff;
     padding: 5px;
@@ -133,7 +133,7 @@ header img{
 
 }
 
-.products .product-item a .author{
+.products .product-item a .year{
     color: darkgrey;
     padding-top: 5px;
 }
