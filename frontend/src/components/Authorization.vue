@@ -1,23 +1,22 @@
 <template>
-  <section class = "authorization_vue">
+  <section class="intro_vue">
     <div class="login-box">
+      <h2>{{this.info}}</h2>
       <form>
         <div class="user-box">
-          <input type="text" name="" required=""/>
+          <input type="text" v-model="username" name="" required=""/>
           <label><i class="Username"></i>
-            Username
+            Почта или логин
           </label>
         </div>
         <div class="user-box">
-          <input type="password" name="" required=""/>
+          <input type="password" v-model="password" name="" required=""/>
           <label><i class="Unlock"></i>
-            Password
+            Пароль
           </label>
         </div>
       </form>
-      <router-link :to="{name: 'MainPage'}">
-        <button type="submit" class = "submit-button">LogIn</button>
-      </router-link>
+      <button type="submit" class="submit-button" @click = authorization()>Вход</button>
     </div>
   </section>
 </template>
@@ -27,8 +26,44 @@
 export default {
 
   name: "Authorization",
-  beforeCreate: function() {
+  beforeCreate: function () {
     document.body.className = 'auth';
+  },
+  data() {
+    return {
+      userId: null,
+      username: null,
+      password: null,
+      info: 'Авторизация',
+      correct: false
+    }
+  },
+  methods: {
+    authorization() {
+      const params = {
+        name: this.username, password: this.password
+      }
+      this.$http.post('/user', params)
+          .then(response => this.checkCorrect(response.data.userId))
+
+    },
+    checkCorrect(data) {
+      if (data !== -1) {
+        this.userId = data
+        this.correct = true
+        this.$router.push('main')
+        this.info = "Успешная авторизация"
+        localStorage.userId = this.userId;
+      } else {
+        this.info = "Ошибка авторизации, повторите попытку"
+      }
+      console.log(this.correct)
+    }
+  },
+  mounted() {
+    if (localStorage.userId) {
+      this.userId = localStorage.userId;
+    }
   }
 }
 </script>

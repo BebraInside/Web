@@ -2,59 +2,51 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public $arr = array(
-        [
-            'id' => 1,
-            'login' => 'admin',
-            'password' => 'password'
-        ],
-        [
-            'id' => 2,
-            'login' => 'user1',
-            'password' => '12345'
-        ],
-        [
-            'id' => 3,
-            'login' => 'user2',
-            'password' => 'qwerty'
-        ]
-    );
-
     /**
      * Список пользователей.
-     * @return array[]
+     * @return Collection
      */
     public function list()
     {
-        return $this->arr;
+        return User::query()->get();
     }
 
     /**
      * Информация о пользователе
      * @param $id
-     * @return array
+     * @return Model|object
      */
     public function info($id)
     {
-        return $this->arr[$id - 1];
+        return User::query()->where(['id' => $id])->first();
     }
 
     public function authorization(Request $request)
     {
-        foreach ($this->arr as $value) {
-            if ($value['login'] == $request->get('login') && $value['password'] == $request->get('password')) {
+        $arr = User::query()->where(['name' => $request->get('name')])->first();
+        if ($arr == NULL) {
+            return [
+                'userId' => -1
+            ];
+        } else {
+            if ($arr['password'] == $request->get('password')) {
                 return [
-                    'userId' => $value['id']
+                    'userId' => $arr['id']
+                ];
+            } else {
+                return [
+                    'userId' => -1
                 ];
             }
         }
-        return [
-            'userId' => -1
-        ];
+
     }
 }

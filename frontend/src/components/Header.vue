@@ -16,7 +16,11 @@
       <nav>
         <a href="#"><h2 class="about-header">О нас</h2></a>
         <a href="#"><h2 class="about-header">Личный кабинет</h2></a>
-        <a href="#"><h2 class="about-header">Корзина</h2></a>
+        <a href="#">
+          <h2 class="about-header">Корзина
+            <app-cart></app-cart>
+          </h2>
+        </a>
       </nav>
     </header>
   </div>

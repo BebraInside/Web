@@ -20,7 +20,7 @@
             <div class="buying-price">
               <div class="buying-rate-text">Цена: {{ product.price }}</div>
             </div>
-            <a href="#" class="btn"><span class="text">Добавить <span>в корзину</span></span></a>
+            <a @click = "addToCart(element)" class="btn"><span class="text">Добавить <span>в корзину</span></span></a>
 
           </div>
         </div>
@@ -44,24 +44,35 @@
 <script>
 import Footer from "./Footer";
 import Header from "./Header";
-import Product from "./Product";
 
 export default {
-  name: "ContentPage",
+  name: "item_page",
   components: {
+    // eslint-disable-next-line vue/no-unused-components
     Footer,
-    Header,
-    Product
+    // eslint-disable-next-line vue/no-unused-components
+    Header
+  },
+  beforeCreate: function() {
+    document.body.className = 'ContentPage';
+  },
+  methods: {
+    addToCart(product){
+      const params = {
+        id: product.id, count: 1, userId: localStorage.userId
+      }
+      this.$http.post('/cart', params)
+    }
   },
   data() {
     return {
-      id: null,
       product: null
     }
   },
   created() {
-    this.id = this.$route.params.id
-    this.product = this.$route.params.product
+    const id = this.$route.params.id
+    this.$http.get('/products/' + id)
+        .then(response => this.product = response.data)
   }
 }
 </script>

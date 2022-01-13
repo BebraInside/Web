@@ -2,27 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use App\Domain\Cart\Services\CartService;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
+
 /**
-* Контроллер для управления корзиной
-*/
+ * Контроллер для управления корзиной
+ */
 class CartController extends Controller
 {
 
+    public function info($userId)
+    {
+        $service = new CartService();
+        return $service->getCart($userId);
+    }
+
     /**
-    * Добавляет товар в корзину
-    * @param Request request
-    * @return array
-    */
+     * Добавляет товар в корзину
+     * @param Request request
+     * @return array
+     */
     public function addToCart(Request $request)
     {
-        $id = $request->get('id');
-        $count = $request->get('count', 1);
+        $service = new CartService();
+        $service->addToCart($request->get('id'), $request->get('count', 1), $request->get('userId'));
 
-        // добавили альбом в бд
         return [
-            'inCart'=> true
+            'inCart' => true
         ];
     }
 }
